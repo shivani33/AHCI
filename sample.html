@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <div id="div"></div>
+    <script type="text/javascript">
+
+    var svg = d3.select("#div")
+        .append("svg")
+        .attr("width", 1857)
+        .attr("height", 118);
+
+    svg.append("svg:image")
+        // .attr('x',-9)
+        // .attr('y',-12)
+        .attr('width', "100%")
+        .attr('height', "100%")
+        .attr("xlink:href","neck.jpg");
+
+    var strings = [
+        10,
+        30,
+        50,
+        70,
+        90,
+        110
+    ];
+
+    var frets = [
+        60,
+        160,
+        260,
+        360,
+        450,
+        545,
+        635,
+        725,
+        815,
+        900,
+        980,
+        1060,
+        1140,
+        1220,
+        1290, 
+        1365,
+        1435,
+        1500,
+        1570,
+        1640,
+        1700,
+        1765,
+        1820
+    ];
+
+    var notes = [
+        {x: 7, y: 3},
+        {x: 5, y: 2},
+        {x: 5, y: 1},
+        {x: 6, y: 1},
+        {x: 5, y: 1},
+        {x: 7, y: 2},
+        {x: 6, y: 1},
+        {x: 5, y: 0},
+
+        {x: 12, y: 1},
+        {x: 10, y: 1},
+        {x: 9, y: 1},
+        {x: 10, y: 1},
+        {x: 12, y: 1},
+        {x: 10, y: 1},
+        {x: 9, y: 1},
+        {x: 12, y: 1},
+        
+        {x: 10, y: 1},
+        {x: 10, y: 2},
+        {x: 12, y: 3},
+        {x: 9, y: 3},
+        
+        {x: 10, y: 2},
+        {x: 10, y: 0},
+        {x: 8, y: 0},
+        {x: 7, y: 0},
+        {x: 10, y: 1},
+        
+        {x: 9, y: 1},
+        {x: 10, y: 1},
+        {x: 9, y: 1},
+        {x: 10, y: 2},
+        {x: 7, y: 2},
+        {x: 9, y: 3},
+    ];
+
+    var lines = [];
+    for (var i = 0; i < notes.length - 2; i++) {
+        lines += [notes[i], notes[i+1]];
+    };
+
+    // GLOBAL PARAMETERS
+    var curveColor = "lightblue";
+    var noteColor = "lightblue";
+    var noteSize = "9px";
+
+
+    This is the accessor function we talked about above
+    var lineFunction = d3.svg.line()
+        .x(function(d) { return frets[d.x]; })
+        .y(function(d) { return strings[d.y]; })
+        .interpolate("cardinal");
+
+    // svg.selectAll(".line")
+    //    .data(lines)
+    //    .enter()
+    //    .append("line")
+    //    .attr("x1", function(d) { return frets[d[0].x] })
+    //    .attr("y1", function(d) { return strings[d[0].y] })
+    //    .attr("x2", function(d) { return frets[d[1].x] })
+    //    .attr("y2", function(d) { return strings[d[1].y] })
+    //    .style("stroke", "rgb(6,120,155)");
+
+    //The line SVG Path we draw
+    var lineGraph = svg.append("path")  
+        .attr("d", lineFunction(notes))
+        .attr("stroke", curveColor)
+        .attr("stroke-width", 3)
+        .attr("opacity", 0.5)
+        .attr("fill", "none");
+
+    svg.selectAll("circle.notes")
+        .data(notes)
+        .enter()
+        .append("svg:circle")
+        .attr("cx", function(d,i) { console.log(i); return frets[d.x]; })
+        .attr("cy", function(d,i) { return strings[d.y]; })
+        .attr("opacity", 0.3)
+        .attr("r", noteSize)
+        .attr("fill", noteColor)
+        // .on("mouseover", function(){d3.select(this).transition().style("fill", "aliceblue");})
+        // .on("mouseout", function(){d3.select(this).transition().style("fill", "lightblue");});
+    
+    </script>
+</body>
+
+</html>
