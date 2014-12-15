@@ -4,7 +4,10 @@
 
 <head>
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+	<script src="./guitar.js" charset="utf-8"></script>
 </head>
+
 
 <style>
 	body {
@@ -23,6 +26,8 @@
 		font-size: 10px;
 	}
 </style>
+
+
 
 <body>
 
@@ -67,12 +72,31 @@
 	// DATA //
 	//////////
 
-	var stringCoords = [10, 30, 50, 70, 90, 110 ];
-
-	var fretCoords = [60, 160, 260, 360, 450, 545, 635, 725, 815, 900, 980, 1060, 1140, 1220, 1290, 1365, 1435, 1500, 1570, 1640, 1700, 1765, 1820 ];
+	var notesMatrix = [];
+	for(var i=0; i<nfrets; i++) {
+		notesMatrix[i] = new Array(nstrings);
+		for(var j=0; j<nstrings; j++) {
+	        notesMatrix[i][j] = 0;
+	    }
+	}
 
 	var notes = [
-		{note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"C", x: 8, y: 1}, {note:"F", x: 6, y: 2}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"C", x: 8, y: 1}, {note:"F", x: 6, y: 2}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"C", x: 8, y: 1}, {note:"F", x: 6, y: 2}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"C", x: 8, y: 1}, {note:"F", x: 6, y: 2}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"B", x: 7, y: 1}, {note:"F", x: 6, y: 2}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"A", x: 5, y: 1}, {note:"E", x: 5, y: 2}, {note:"C", x: 5, y: 3}, {note:"F", x: 4, y: 4}, {note:"A", x: 5, y: 1}, {note:"E", x: 5, y: 2}, {note:"C", x: 5, y: 3}, {note:"F", x: 4, y: 4}, {note:"A", x: 5, y: 1}, {note:"E", x: 5, y: 2}, {note:"C", x: 5, y: 3}, {note:"F", x: 4, y: 4}, {note:"B", x: 12, y: 2}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"A", x: 10, y: 2}, {note:"B", x: 12, y: 2}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"B", x: 12, y: 2}, {note:"A", x: 10, y: 2}, {note:"F", x: 10, y: 3}, {note:"D", x: 12, y: 4}, {note:"B", x: 9, y: 4}, {note:"F", x: 10, y: 3}, {note:"D", x: 10, y: 1}, {note:"C", x: 8, y: 1}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"F", x: 10, y: 3}, {note:"D", x: 7, y: 3}, {note:"B", x: 9, y: 4}, {note:"G", x: 6, y: 4}, {note:"B", x: 9, y: 4}, {note:"D", x: 7, y: 3}, {note:"F", x: 10, y: 3}, {note:"E", x: 9, y: 3}, {note:"F", x: 10, y: 3}, {note:"E", x: 9, y: 3}, {note:"C", x: 10, y: 4}, {note:"B", x: 9, y: 4}, {note:"A", x: 7, y: 4}, {note:"A", x: 7, y: 4}, {note:"A", x: 10, y: 2}, {note:"B", x: 7, y: 1}, {note:"C", x: 8, y: 1}, {note:"D", x: 10, y: 1}, {note:"D", x: 10, y: 1}, {note:"D", x: 10, y: 1}, {note:"C", x: 8, y: 1}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"F", x: 10, y: 3}, {note:"E", x: 9, y: 3}, {note:"D", x: 7, y: 3}, {note:"C", x: 10, y: 4}, {note:"B", x: 9, y: 4}, {note:"E", x: 9, y: 3}, {note:"C", x: 10, y: 4}, {note:"A", x: 7, y: 4}, {note:"E", x: 7, y: 5}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"A", x: 5, y: 1}, {note:"B", x: 7, y: 1}, {note:"C", x: 8, y: 1}, {note:"A", x: 5, y: 1}, {note:"B", x: 7, y: 1}, {note:"F", x: 7, y: 2}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"E", x: 9, y: 3}, {note:"D", x: 8, y: 3}, {note:"D", x: 7, y: 3}, {note:"C", x: 8, y: 1}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"E", x: 9, y: 3}, {note:"C", x: 10, y: 4}, {note:"A", x: 7, y: 4}, {note:"E", x: 12, y: 1}, {note:"E", x: 12, y: 1}, {note:"E", x: 12, y: 1}, {note:"B", x: 12, y: 2}, {note:"C", x: 13, y: 2}, {note:"E", x: 12, y: 1}, {note:"A", x: 14, y: 3}, {note:"C", x: 13, y: 2}, {note:"E", x: 12, y: 1}, {note:"A", x: 14, y: 3}, {note:"C", x: 13, y: 2}, {note:"E", x: 12, y: 1}, {note:"A", x: 14, y: 3}, {note:"C", x: 13, y: 2}, {note:"E", x: 12, y: 1}, {note:"F", x: 13, y: 1}, {note:"C", x: 9, y: 1}, {note:"E", x: 12, y: 1}, {note:"D", x: 10, y: 1}, {note:"A", x: 10, y: 2}, {note:"F", x: 10, y: 3}, {note:"D", x: 12, y: 4}, {note:"D", x: 12, y: 4}, {note:"A", x: 12, y: 5}, {note:"D", x: 12, y: 4}, {note:"F", x: 10, y: 3}, {note:"E", x: 12, y: 1}, {note:"D", x: 10, y: 1}, {note:"C", x: 8, y: 1}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"F", x: 10, y: 3}, {note:"D", x: 7, y: 3}, {note:"B", x: 9, y: 4}, {note:"A", x: 8, y: 4}, {note:"A", x: 7, y: 4}, {note:"G", x: 6, y: 4}, {note:"B", x: 9, y: 4}, {note:"D", x: 7, y: 3}, {note:"F", x: 10, y: 3}, {note:"E", x: 9, y: 3}, {note:"C", x: 10, y: 4}, {note:"A", x: 7, y: 4}, {note:"C", x: 10, y: 4}, {note:"A", x: 7, y: 4}, {note:"C", x: 10, y: 4}, {note:"E", x: 9, y: 3}, {note:"A", x: 10, y: 2}, {note:"C", x: 8, y: 1}, {note:"E", x: 12, y: 1}, {note:"G", x: 15, y: 1}, {note:"F", x: 13, y: 1}, {note:"B", x: 12, y: 2}, {note:"F", x: 13, y: 1}, {note:"A", x: 17, y: 1}, {note:"F", x: 13, y: 1}, {note:"D", x: 15, y: 2}, {note:"A", x: 14, y: 3}, {note:"F", x: 15, y: 4}, {note:"D", x: 12, y: 4}, {note:"E", x: 14, y: 4}, {note:"E", x: 12, y: 1}, {note:"E", x: 12, y: 1}, {note:"D", x: 11, y: 1}, {note:"D", x: 11, y: 1}, {note:"D", x: 10, y: 1}, {note:"D", x: 10, y: 1}, {note:"C", x: 9, y: 1}, {note:"C", x: 9, y: 1}, {note:"C", x: 8, y: 1}, {note:"C", x: 8, y: 1}, {note:"B", x: 7, y: 1}, {note:"B", x: 7, y: 1}, {note:"A", x: 5, y: 1}, {note:"A", x: 5, y: 1}, {note:"G", x: 4, y: 1}, {note:"G", x: 4, y: 1}, {note:"F", x: 6, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 4, y: 2}, {note:"E", x: 5, y: 2}, {note:"A", x: 7, y: 4}, {note:"E", x: 9, y: 3}, {note:"D", x: 8, y: 3}, {note:"E", x: 9, y: 3}, {note:"E", x: 12, y: 1}, {note:"B", x: 7, y: 1}, {note:"D", x: 10, y: 1}, {note:"C", x: 8, y: 1}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"E", x: 9, y: 3}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 4, y: 2}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"F", x: 7, y: 2}, {note:"F", x: 6, y: 2}, {note:"B", x: 9, y: 4}, {note:"A", x: 7, y: 4}, {note:"A", x: 7, y: 4}, {note:"G", x: 6, y: 4}, {note:"B", x: 9, y: 4}, {note:"D", x: 7, y: 3}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"B", x: 9, y: 4}, {note:"D", x: 7, y: 3}, {note:"F", x: 10, y: 3}, {note:"G", x: 9, y: 2}, {note:"B", x: 12, y: 2}, {note:"D", x: 10, y: 1}, {note:"F", x: 13, y: 1}, {note:"F", x: 14, y: 1}, {note:"B", x: 7, y: 1}, {note:"D", x: 10, y: 1}, {note:"C", x: 8, y: 1}, {note:"A", x: 10, y: 2}, {note:"C", x: 8, y: 1}, {note:"A", x: 10, y: 2}, {note:"E", x: 9, y: 3}, {note:"C", x: 10, y: 4}, {note:"E", x: 9, y: 3}, {note:"A", x: 10, y: 2}, {note:"C", x: 8, y: 1}, {note:"D", x: 10, y: 1}, {note:"B", x: 7, y: 1}, {note:"B", x: 7, y: 1}, {note:"C", x: 8, y: 1}, {note:"A", x: 10, y: 2}, {note:"B", x: 7, y: 1}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"F", x: 10, y: 3}, {note:"D", x: 7, y: 3}, {note:"C", x: 10, y: 4}, {note:"B", x: 9, y: 4}, {note:"E", x: 9, y: 3}, {note:"E", x: 9, y: 3}, {note:"E", x: 9, y: 3}, {note:"C", x: 10, y: 4}, {note:"A", x: 7, y: 4}, {note:"E", x: 7, y: 5}, {note:"E", x: 7, y: 5}, {note:"A", x: 7, y: 4}, {note:"D", x: 6, y: 5}, {note:"E", x: 7, y: 5}, {note:"F", x: 8, y: 5}, {note:"E", x: 7, y: 5}, {note:"D", x: 6, y: 5}, {note:"E", x: 7, y: 5}, {note:"E", x: 7, y: 5}, {note:"E", x: 7, y: 5}, {note:"A", x: 7, y: 4}, {note:"E", x: 7, y: 5}, {note:"C", x: 3, y: 5}, {note:"A", x: 5, y: 6}, {note:"A", x: 5, y: 6}, {note:"C", x: 3, y: 5}, {note:"E", x: 7, y: 5}, {note:"A", x: 7, y: 4}, {note:"C", x: 8, y: 1}, {note:"G", x: 8, y: 2}, {note:"D", x: 8, y: 3}, {note:"A", x: 7, y: 4}, {note:"C", x: 8, y: 1}, {note:"G", x: 8, y: 2}, {note:"D", x: 8, y: 3}, {note:"A", x: 7, y: 4}, {note:"C", x: 8, y: 1}, {note:"G", x: 8, y: 2}, {note:"D", x: 8, y: 3}, {note:"A", x: 7, y: 4}, {note:"B", x: 7, y: 1}, {note:"F", x: 7, y: 2}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"A", x: 5, y: 1}, {note:"E", x: 5, y: 2}, {note:"C", x: 5, y: 3}, {note:"F", x: 4, y: 4}, {note:"C", x: 8, y: 1}, {note:"G", x: 8, y: 2}, {note:"D", x: 8, y: 3}, {note:"A", x: 7, y: 4}, {note:"A", x: 5, y: 1}, {note:"E", x: 5, y: 2}, {note:"C", x: 5, y: 3}, {note:"F", x: 4, y: 4}, {note:"A", x: 5, y: 1}, {note:"E", x: 5, y: 2}, {note:"C", x: 5, y: 3}, {note:"F", x: 4, y: 4}, {note:"B", x: 7, y: 1}, {note:"F", x: 7, y: 2}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"C", x: 8, y: 1}, {note:"G", x: 8, y: 2}, {note:"D", x: 8, y: 3}, {note:"A", x: 7, y: 4}, {note:"C", x: 9, y: 1}, {note:"G", x: 9, y: 2}, {note:"E", x: 9, y: 3}, {note:"A", x: 8, y: 4}, {note:"D", x: 10, y: 1}, {note:"A", x: 10, y: 2}, {note:"F", x: 10, y: 3}, {note:"B", x: 9, y: 4}, {note:"G", x: 15, y: 1}, {note:"D", x: 15, y: 2}, {note:"A", x: 15, y: 3}, {note:"E", x: 14, y: 4}, {note:"G", x: 3, y: 1}, {note:"D", x: 3, y: 2}, {note:"A", x: 3, y: 3}, {note:"E", x: 2, y: 4}, {note:"G", x: 3, y: 1}, {note:"F", x: 2, y: 1}, {note:"F", x: 1, y: 1}, {note:"E", x: 0, y: 1}, {note:"D", x: 4, y: 2}, {note:"D", x: 3, y: 2}, {note:"C", x: 2, y: 2}, {note:"C", x: 1, y: 2}, {note:"B", x: 0, y: 2}, {note:"A", x: 3, y: 3}, {note:"A", x: 2, y: 3}, {note:"G", x: 1, y: 3}, {note:"G", x: 0, y: 3}, {note:"F", x: 4, y: 4}, {note:"F", x: 3, y: 4}, {note:"E", x: 2, y: 4}, {note:"D", x: 1, y: 4}, {note:"D", x: 0, y: 4}, {note:"C", x: 4, y: 5}, {note:"E", x: 2, y: 4}, {note:"F", x: 3, y: 4}, {note:"G", x: 6, y: 4}, {note:"B", x: 4, y: 3}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"E", x: 9, y: 3}, {note:"C", x: 10, y: 4}, {note:"A", x: 7, y: 4}, {note:"C", x: 8, y: 1}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"F", x: 10, y: 3}, {note:"D", x: 7, y: 3}, {note:"B", x: 4, y: 3}, {note:"F", x: 7, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"B", x: 4, y: 3}, {note:"C", x: 5, y: 3}, {note:"D", x: 7, y: 3}, {note:"C", x: 5, y: 3}, {note:"B", x: 4, y: 3}, {note:"C", x: 6, y: 3}, {note:"C", x: 5, y: 3}, {note:"A", x: 7, y: 4}, {note:"E", x: 7, y: 5}, {note:"E", x: 7, y: 5}, {note:"D", x: 8, y: 3}, {note:"D", x: 6, y: 5}, {note:"E", x: 9, y: 3}, {note:"E", x: 7, y: 5}, {note:"F", x: 10, y: 3}, {note:"F", x: 8, y: 5}, {note:"E", x: 9, y: 3}, {note:"E", x: 7, y: 5}, {note:"B", x: 7, y: 1}, {note:"B", x: 4, y: 3}, {note:"C", x: 8, y: 1}, {note:"C", x: 5, y: 3}, {note:"D", x: 10, y: 1}, {note:"D", x: 7, y: 3}, {note:"D", x: 11, y: 1}, {note:"D", x: 8, y: 3}, {note:"E", x: 12, y: 1}, {note:"E", x: 9, y: 3}, {note:"G", x: 9, y: 2}, {note:"G", x: 6, y: 4}, {note:"A", x: 10, y: 2}, {note:"A", x: 7, y: 4}, {note:"A", x: 10, y: 2}, {note:"A", x: 7, y: 4}, {note:"A", x: 10, y: 2}, {note:"A", x: 7, y: 4}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"E", x: 5, y: 2}, {note:"E", x: 5, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"A", x: 5, y: 1}, {note:"A", x: 5, y: 1}, {note:"A", x: 5, y: 1}, {note:"E", x: 9, y: 3}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"E", x: 9, y: 3}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"B", x: 7, y: 1}, {note:"C", x: 8, y: 1}, {note:"C", x: 8, y: 1}, {note:"A", x: 5, y: 1}, {note:"E", x: 5, y: 2}, {note:"C", x: 5, y: 3}, {note:"F", x: 4, y: 4 } ];
+
+		{note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"C", x: 8, y: 1}, {note:"F", x: 6, y: 2}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"C", x: 8, y: 1}, {note:"F", x: 6, y: 2}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"C", x: 8, y: 1}, {note:"F", x: 6, y: 2}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"C", x: 8, y: 1}, {note:"F", x: 6, y: 2}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"B", x: 7, y: 1}, {note:"F", x: 6, y: 2}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"A", x: 5, y: 1}, {note:"E", x: 5, y: 2}, {note:"C", x: 5, y: 3}, {note:"F", x: 4, y: 4}, {note:"A", x: 5, y: 1}, {note:"E", x: 5, y: 2}, {note:"C", x: 5, y: 3}, {note:"F", x: 4, y: 4}, {note:"A", x: 5, y: 1}, {note:"E", x: 5, y: 2}, {note:"C", x: 5, y: 3}, {note:"F", x: 4, y: 4}, {note:"B", x: 12, y: 2}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"A", x: 10, y: 2}, {note:"B", x: 12, y: 2}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"B", x: 12, y: 2}, {note:"A", x: 10, y: 2}, {note:"F", x: 10, y: 3}, {note:"D", x: 12, y: 4}, {note:"B", x: 9, y: 4}, {note:"F", x: 10, y: 3}, {note:"D", x: 10, y: 1}, {note:"C", x: 8, y: 1}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"F", x: 10, y: 3}, {note:"D", x: 7, y: 3}, {note:"B", x: 9, y: 4}, {note:"G", x: 6, y: 4}, {note:"B", x: 9, y: 4}, {note:"D", x: 7, y: 3}, {note:"F", x: 10, y: 3}, {note:"E", x: 9, y: 3}, {note:"F", x: 10, y: 3}, {note:"E", x: 9, y: 3}, {note:"C", x: 10, y: 4}, {note:"B", x: 9, y: 4}, {note:"A", x: 7, y: 4}, {note:"A", x: 7, y: 4}, {note:"A", x: 10, y: 2}, {note:"B", x: 7, y: 1}, {note:"C", x: 8, y: 1}, {note:"D", x: 10, y: 1}, {note:"D", x: 10, y: 1}, {note:"D", x: 10, y: 1}, {note:"C", x: 8, y: 1}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"F", x: 10, y: 3}, {note:"E", x: 9, y: 3}, {note:"D", x: 7, y: 3}, {note:"C", x: 10, y: 4}, {note:"B", x: 9, y: 4}, {note:"E", x: 9, y: 3}, {note:"C", x: 10, y: 4}, {note:"A", x: 7, y: 4}, {note:"E", x: 7, y: 5}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"A", x: 5, y: 1}, {note:"B", x: 7, y: 1}, {note:"C", x: 8, y: 1}, {note:"A", x: 5, y: 1}, {note:"B", x: 7, y: 1}, {note:"F", x: 7, y: 2}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"E", x: 9, y: 3}, {note:"D", x: 8, y: 3}, {note:"D", x: 7, y: 3}, {note:"C", x: 8, y: 1}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"E", x: 9, y: 3}, {note:"C", x: 10, y: 4}, {note:"A", x: 7, y: 4}, {note:"E", x: 12, y: 1}, {note:"E", x: 12, y: 1}, {note:"E", x: 12, y: 1}, {note:"B", x: 12, y: 2}, {note:"C", x: 13, y: 2}, {note:"E", x: 12, y: 1}, {note:"A", x: 14, y: 3}, {note:"C", x: 13, y: 2}, {note:"E", x: 12, y: 1}, {note:"A", x: 14, y: 3}, {note:"C", x: 13, y: 2}, {note:"E", x: 12, y: 1}, {note:"A", x: 14, y: 3}, {note:"C", x: 13, y: 2}, {note:"E", x: 12, y: 1}, {note:"F", x: 13, y: 1}, {note:"C", x: 9, y: 1}, {note:"E", x: 12, y: 1}, {note:"D", x: 10, y: 1}, {note:"A", x: 10, y: 2}, {note:"F", x: 10, y: 3}, {note:"D", x: 12, y: 4}, {note:"D", x: 12, y: 4}, {note:"A", x: 12, y: 5}, {note:"D", x: 12, y: 4}, {note:"F", x: 10, y: 3}, {note:"E", x: 12, y: 1}, {note:"D", x: 10, y: 1}, {note:"C", x: 8, y: 1}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"F", x: 10, y: 3}, {note:"D", x: 7, y: 3}, {note:"B", x: 9, y: 4}, {note:"A", x: 8, y: 4}, {note:"A", x: 7, y: 4}, {note:"G", x: 6, y: 4}, {note:"B", x: 9, y: 4}, {note:"D", x: 7, y: 3}, {note:"F", x: 10, y: 3}, {note:"E", x: 9, y: 3}, {note:"C", x: 10, y: 4}, {note:"A", x: 7, y: 4}, {note:"C", x: 10, y: 4}, {note:"A", x: 7, y: 4}, {note:"C", x: 10, y: 4}, {note:"E", x: 9, y: 3}, {note:"A", x: 10, y: 2}, {note:"C", x: 8, y: 1}, {note:"E", x: 12, y: 1}, {note:"G", x: 15, y: 1}, {note:"F", x: 13, y: 1}, {note:"B", x: 12, y: 2}, {note:"F", x: 13, y: 1}, {note:"A", x: 17, y: 1}, {note:"F", x: 13, y: 1}, {note:"D", x: 15, y: 2}, {note:"A", x: 14, y: 3}, {note:"F", x: 15, y: 4}, {note:"D", x: 12, y: 4}, {note:"E", x: 14, y: 4}, {note:"E", x: 12, y: 1}, {note:"E", x: 12, y: 1}, {note:"D", x: 11, y: 1}, {note:"D", x: 11, y: 1}, {note:"D", x: 10, y: 1}, {note:"D", x: 10, y: 1}, {note:"C", x: 9, y: 1}, {note:"C", x: 9, y: 1}, {note:"C", x: 8, y: 1}, {note:"C", x: 8, y: 1}, {note:"B", x: 7, y: 1}, {note:"B", x: 7, y: 1}, {note:"A", x: 5, y: 1}, {note:"A", x: 5, y: 1}, {note:"G", x: 4, y: 1}, {note:"G", x: 4, y: 1}, {note:"F", x: 6, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 4, y: 2}, {note:"E", x: 5, y: 2}, {note:"A", x: 7, y: 4}, {note:"E", x: 9, y: 3}, {note:"D", x: 8, y: 3}, {note:"E", x: 9, y: 3}, {note:"E", x: 12, y: 1}, {note:"B", x: 7, y: 1}, {note:"D", x: 10, y: 1}, {note:"C", x: 8, y: 1}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"E", x: 9, y: 3}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 4, y: 2}, {note:"E", x: 5, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"F", x: 7, y: 2}, {note:"F", x: 6, y: 2}, {note:"B", x: 9, y: 4}, {note:"A", x: 7, y: 4}, {note:"A", x: 7, y: 4}, {note:"G", x: 6, y: 4}, {note:"B", x: 9, y: 4}, {note:"D", x: 7, y: 3}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"B", x: 9, y: 4}, {note:"D", x: 7, y: 3}, {note:"F", x: 10, y: 3}, {note:"G", x: 9, y: 2}, {note:"B", x: 12, y: 2}, {note:"D", x: 10, y: 1}, {note:"F", x: 13, y: 1}, {note:"F", x: 14, y: 1}, {note:"B", x: 7, y: 1}, {note:"D", x: 10, y: 1}, {note:"C", x: 8, y: 1}, {note:"A", x: 10, y: 2}, {note:"C", x: 8, y: 1}, {note:"A", x: 10, y: 2}, {note:"E", x: 9, y: 3}, {note:"C", x: 10, y: 4}, {note:"E", x: 9, y: 3}, {note:"A", x: 10, y: 2}, {note:"C", x: 8, y: 1}, {note:"D", x: 10, y: 1}, {note:"B", x: 7, y: 1}, {note:"B", x: 7, y: 1}, {note:"C", x: 8, y: 1}, {note:"A", x: 10, y: 2}, {note:"B", x: 7, y: 1}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"F", x: 10, y: 3}, {note:"D", x: 7, y: 3}, {note:"C", x: 10, y: 4}, {note:"B", x: 9, y: 4}, {note:"E", x: 9, y: 3}, {note:"E", x: 9, y: 3}, {note:"E", x: 9, y: 3}, {note:"C", x: 10, y: 4}, {note:"A", x: 7, y: 4}, {note:"E", x: 7, y: 5}, {note:"E", x: 7, y: 5}, {note:"A", x: 7, y: 4}, {note:"D", x: 6, y: 5}, {note:"E", x: 7, y: 5}, {note:"F", x: 8, y: 5}, {note:"E", x: 7, y: 5}, {note:"D", x: 6, y: 5}, {note:"E", x: 7, y: 5}, {note:"E", x: 7, y: 5}, {note:"E", x: 7, y: 5}, {note:"A", x: 7, y: 4}, {note:"E", x: 7, y: 5}, {note:"C", x: 3, y: 5}, {note:"A", x: 5, y: 6}, {note:"A", x: 5, y: 6}, {note:"C", x: 3, y: 5}, {note:"E", x: 7, y: 5}, {note:"A", x: 7, y: 4}, {note:"C", x: 8, y: 1}, {note:"G", x: 8, y: 2}, {note:"D", x: 8, y: 3}, {note:"A", x: 7, y: 4}, {note:"C", x: 8, y: 1}, {note:"G", x: 8, y: 2}, {note:"D", x: 8, y: 3}, {note:"A", x: 7, y: 4}, {note:"C", x: 8, y: 1}, {note:"G", x: 8, y: 2}, {note:"D", x: 8, y: 3}, {note:"A", x: 7, y: 4}, {note:"B", x: 7, y: 1}, {note:"F", x: 7, y: 2}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"A", x: 5, y: 1}, {note:"E", x: 5, y: 2}, {note:"C", x: 5, y: 3}, {note:"F", x: 4, y: 4}, {note:"C", x: 8, y: 1}, {note:"G", x: 8, y: 2}, {note:"D", x: 8, y: 3}, {note:"A", x: 7, y: 4}, {note:"A", x: 5, y: 1}, {note:"E", x: 5, y: 2}, {note:"C", x: 5, y: 3}, {note:"F", x: 4, y: 4}, {note:"A", x: 5, y: 1}, {note:"E", x: 5, y: 2}, {note:"C", x: 5, y: 3}, {note:"F", x: 4, y: 4}, {note:"B", x: 7, y: 1}, {note:"F", x: 7, y: 2}, {note:"D", x: 7, y: 3}, {note:"G", x: 6, y: 4}, {note:"C", x: 8, y: 1}, {note:"G", x: 8, y: 2}, {note:"D", x: 8, y: 3}, {note:"A", x: 7, y: 4}, {note:"C", x: 9, y: 1}, {note:"G", x: 9, y: 2}, {note:"E", x: 9, y: 3}, {note:"A", x: 8, y: 4}, {note:"D", x: 10, y: 1}, {note:"A", x: 10, y: 2}, {note:"F", x: 10, y: 3}, {note:"B", x: 9, y: 4}, {note:"G", x: 15, y: 1}, {note:"D", x: 15, y: 2}, {note:"A", x: 15, y: 3}, {note:"E", x: 14, y: 4}, {note:"G", x: 3, y: 1}, {note:"D", x: 3, y: 2}, {note:"A", x: 3, y: 3}, {note:"E", x: 2, y: 4}, {note:"G", x: 3, y: 1}, {note:"F", x: 2, y: 1}, {note:"F", x: 1, y: 1}, {note:"E", x: 0, y: 1}, {note:"D", x: 4, y: 2}, {note:"D", x: 3, y: 2}, {note:"C", x: 2, y: 2}, {note:"C", x: 1, y: 2}, {note:"B", x: 0, y: 2}, {note:"A", x: 3, y: 3}, {note:"A", x: 2, y: 3}, {note:"G", x: 1, y: 3}, {note:"G", x: 0, y: 3}, {note:"F", x: 4, y: 4}, {note:"F", x: 3, y: 4}, {note:"E", x: 2, y: 4}, {note:"D", x: 1, y: 4}, {note:"D", x: 0, y: 4}, {note:"C", x: 4, y: 5}, {note:"E", x: 2, y: 4}, {note:"F", x: 3, y: 4}, {note:"G", x: 6, y: 4}, {note:"B", x: 4, y: 3}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"E", x: 9, y: 3}, {note:"C", x: 10, y: 4}, {note:"A", x: 7, y: 4}, {note:"C", x: 8, y: 1}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"A", x: 10, y: 2}, {note:"F", x: 10, y: 3}, {note:"D", x: 7, y: 3}, {note:"B", x: 4, y: 3}, {note:"F", x: 7, y: 2}, {note:"F", x: 6, y: 2}, {note:"E", x: 5, y: 2}, {note:"B", x: 4, y: 3}, {note:"C", x: 5, y: 3}, {note:"D", x: 7, y: 3}, {note:"C", x: 5, y: 3}, {note:"B", x: 4, y: 3}, {note:"C", x: 6, y: 3}, {note:"C", x: 5, y: 3}, {note:"A", x: 7, y: 4}, {note:"E", x: 7, y: 5}, {note:"E", x: 7, y: 5}, {note:"D", x: 8, y: 3}, {note:"D", x: 6, y: 5}, {note:"E", x: 9, y: 3}, {note:"E", x: 7, y: 5}, {note:"F", x: 10, y: 3}, {note:"F", x: 8, y: 5}, {note:"E", x: 9, y: 3}, {note:"E", x: 7, y: 5}, {note:"B", x: 7, y: 1}, {note:"B", x: 4, y: 3}, {note:"C", x: 8, y: 1}, {note:"C", x: 5, y: 3}, {note:"D", x: 10, y: 1}, {note:"D", x: 7, y: 3}, {note:"D", x: 11, y: 1}, {note:"D", x: 8, y: 3}, {note:"E", x: 12, y: 1}, {note:"E", x: 9, y: 3}, {note:"G", x: 9, y: 2}, {note:"G", x: 6, y: 4}, {note:"A", x: 10, y: 2}, {note:"A", x: 7, y: 4}, {note:"A", x: 10, y: 2}, {note:"A", x: 7, y: 4}, {note:"A", x: 10, y: 2}, {note:"A", x: 7, y: 4}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"A", x: 7, y: 4}, {note:"C", x: 5, y: 3}, {note:"E", x: 5, y: 2}, {note:"E", x: 5, y: 2}, {note:"E", x: 5, y: 2}, {note:"E", x: 5, y: 2}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"D", x: 7, y: 3}, {note:"F", x: 6, y: 2}, {note:"A", x: 5, y: 1}, {note:"A", x: 5, y: 1}, {note:"A", x: 5, y: 1}, {note:"A", x: 5, y: 1}, {note:"E", x: 9, y: 3}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"E", x: 9, y: 3}, {note:"G", x: 9, y: 2}, {note:"B", x: 7, y: 1}, {note:"B", x: 7, y: 1}, {note:"C", x: 8, y: 1}, {note:"C", x: 8, y: 1}, {note:"A", x: 5, y: 1}, {note:"E", x: 5, y: 2}, {note:"C", x: 5, y: 3}, {note:"F", x: 4, y: 4 } 
+		];
+
+
+	// Counts number of notes
+	notes.forEach( function(i) {
+		notesMatrix[i.x][i.y-1]++;
+	});
+	var notesMax = d3.max(notesMatrix, function(d) { return d3.max(d); })
+
+	// print fretboard values
+	// for(var i=0; i<nfrets; i++) {
+	// 	console.log(notesMatrix[i].join("\t"));
+	// }
+
 
 	///////////////////////
 	// GLOBAL PARAMETERS //
@@ -106,6 +130,7 @@
 	var CURVECOLOR = "#00A0B0";
 	var NOTESCOLOR = "#CC333F";
 	var NOTESSIZE = "9";
+	var LINESWIDTH = "2";
 
 	var notesAlpha = 0.1;
 	var linesAlpha = 0.1;
@@ -163,7 +188,7 @@
 	});
 
 	updateAttrConfig("data_radius","r",NOTESSIZE);
-	updateStyleConfig("notesAlpha", "circle", notesAlpha*100);
+	updateStyleConfig("notesAlpha", "g", notesAlpha*100);
 	updateStyleConfig("linesAlpha", "path", linesAlpha*100);
 
 
@@ -191,43 +216,69 @@
 		.append("path")
 		// Crazy function that creates a cool slightly bended curve
 		.attr("d", function(d) {
-			var sx = fretCoords[d[0].x-1], sy = stringCoords[d[0].y-1],
-			tx = fretCoords[d[1].x-1], ty = stringCoords[d[1].y-1],
+			var sx = fretCoords[d[0].x], sy = stringCoords[d[0].y-1],
+			tx = fretCoords[d[1].x], ty = stringCoords[d[1].y-1],
 			dx = tx - sx, dy = ty - sy,
 			dr = 2 * Math.sqrt(dx * dx + dy * dy);
 			return "M" + sx + "," + sy + "A" + dr + "," + dr + " 0 0,1 " + tx + "," + ty;
 		  })
 		.style("stroke", CURVECOLOR)
 		.style("fill", "none")
-		.style("stroke-width", 3)
+		.style("stroke-width", LINESWIDTH)
 	   	.style("opacity", linesAlpha);
 
 	// Notes
-	svg.selectAll("circle.notes")
-		.data(notes)
-		.enter()
-		.append("svg:circle")
-		.attr("cx", function(d,i) { return fretCoords[d.x-1]; })
-		.attr("cy", function(d,i) { return stringCoords[d.y-1]; })
-		.attr("opacity", notesAlpha)
-		.attr("r", NOTESSIZE)
-		// .attr("width", NOTESSIZE+"px")
-		// .attr("height", NOTESSIZE+"px")
-		.attr("fill", NOTESCOLOR);
-		// .on("mouseover", function(){d3.select(this).transition().style("fill", "aliceblue");})
-		// .on("mouseout", function(){d3.select(this).transition().style("fill", "lightblue");});
+	var scaler = d3.scale.linear()
+	    .domain([0, notesMax])
+	    .range([0.2, 1]);
 
-	svg.selectAll("circle.notes")
-		.data(notes)
-		.enter()
-		.append("text")
-		.text("X")
-		.style("font-family", "sans-serif")
-	   .style("font-size", "11px")
-	   .style("text-anchor", "middle")
-	   .style("dominant-baseline", "central")
-	   .style("stroke", "white")
-	   .style("pointer-events", "none");
+
+	for (var i = 0; i < nfrets; i++) {
+		var p = svg.selectAll("g.n"+i)
+			.data(notesMatrix[i]);
+		
+		var g = p.enter()
+			.append("g")
+				.attr("transform", function(d,j) { return "translate(" + fretCoords[i] + "," + stringCoords[j] + ")"; } )
+				.attr("opacity", function(d) { return scaler(d); });
+
+		g.append("svg:circle")
+				// .attr("cx", fretCoords[i] )
+				// .attr("cy", function(d,j) { return stringCoords[j]; })
+				// .attr("opacity", function(d) { return scaler(d); })
+				.attr("r", NOTESSIZE)
+				// .attr("width", NOTESSIZE+"px")
+				// .attr("height", NOTESSIZE+"px")
+				.attr("fill", NOTESCOLOR);
+				// .on("mouseover", function(){d3.select(this).transition().style("fill", "aliceblue");})
+				// .on("mouseout", function(){d3.select(this).transition().style("fill", "lightblue");});
+
+		g.append("text")
+				.text(function(d,j) { return notesMap[j][i]; })
+				// .attr("x", fretCoords[i] )
+				// .attr("y", function(d,j) { return stringCoords[j]; })
+			    // .attr("opacity", function(d) { return scaler(d); })
+			    .style("font-family", "sans-serif")
+				.style("font-size", "11px")
+				.style("text-anchor", "middle")
+				.style("dominant-baseline", "central")
+				.style("pointer-events", "none")
+				.style("fill","white");
+
+		p.exit().remove();
+	};
+
+	// svg.selectAll("circle.notes")
+	// 	.data(notes)
+	// 	.enter()
+	// 	.append("text")
+	// 	.text("X")
+	// 	.style("font-family", "sans-serif")
+	//    .style("font-size", "11px")
+	//    .style("text-anchor", "middle")
+	//    .style("dominant-baseline", "central")
+	//    .style("stroke", "white")
+	//    .style("pointer-events", "none");
 
 	// // Single, interpolated line
 	// var lineFunction = d3.svg.line()
@@ -235,7 +286,6 @@
 	// 	.y(function(d) { return stringCoords[d.y]; })
 	// 	.tension(0.9)
 	// 	.interpolate("cardinal");
-
 	// var lineGraph = svg.append("path")  
 	// 	.attr("d", lineFunction(notes))
 	// 	.attr("stroke", CURVECOLOR)
