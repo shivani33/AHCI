@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<!-- D3 Lib -->
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+		<!-- Stylesheets -->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/barChart.css">
+		
+		<!-- <script src="./SongAnalyzer.js" charset="utf-8"></script> -->
+	</head>
+
+
+
+	<body>
+
+		<!-- CONTROL PANEL -->
+
+		<div id="controlPanel">
+			<p>
+			  <label for="data_radius">
+					 circleRadius:
+			  </label>
+			  <input type="number" min="1" id="data_radius">
+			</p>
+
+			<p>
+			  <label for="linesAlpha">
+					 lines alpha(%):
+			  </label>
+			  <input type="range" min="1" max="100" id="linesAlpha">
+			</p>
+
+			<p>
+			  <input type="checkbox" id="showImage" checked> 
+			  <label for="showImage">
+					 show fret board
+			  </label>
+			</p>
+		</div>
+
+		
+		<!-- MAIN SCRIPT FILE -->
+
+		<!-- <script type="text/javascript" src="app.js"></script> -->
+        <script data-main="app" src="lib/require.js"></script>
+
+
+	</body>
+
+</html>
