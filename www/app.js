@@ -190,25 +190,36 @@ function main() {
 	var scaler = d3.scale.linear()
 	    .domain([0, maxNotesPerPosition])
 	    .range([0.3, 1]);
-	for (var i = 0; i < nfrets; i++) {
-		
-		// Binds each column of dataMatrix
-		var p = svg.selectAll("g.n"+i)
-			.data(notesMatrix[i]);
-		
-		// Adds svg group node
-		var g = p.enter()
-			.append("g")
-				.attr("transform", function(d,j) { return "translate(" + fretCoords[i] + "," + stringCoords[j] + ")"; } )
-				.attr("opacity", function(d) { return scaler(d); })
-				.on("mouseover", function(d) { 
-					var node = d3.select(this);
-					node.style("opacity", 1); 
-				})
-				.on("mouseout", function(d) {
-					var node = d3.select(this);
-					node.style("opacity", scaler(d) ); 
-				});
+	
+	// Create a SVG group for each fret ...
+	var divs = svg.selectAll("g.fret")
+		.data(notesMatrix)
+		.enter()
+		.append("g");
+
+	// And then of each fret iterate by the strings, creating as well one SVG
+	//   group for each one.
+	var g = divs.selectAll("g")
+		.data(function(d) { return d; })
+		.enter()
+		.append("g")
+			// The transform property will set the right position of the note
+			.attr("transform", function(d,i,j) { return "translate(" + fretCoords[j] + "," + stringCoords[i] + ")"; } )
+			// The opacity will be given by a scaler that maps the note frequency
+			//    to the opacity scale set earlier.
+			.attr("opacity", function(d) { return scaler(d); })
+			// The following 2 properties are for interactivity
+			.on("mouseover", function(d) { 
+				d3.select(this)
+					.transition()
+					.ease("easeOutQuint")
+					.style("opacity", 1); 
+			})
+			.on("mouseout", function(d) {
+				d3.select(this)
+					.transition()
+					.style("opacity", scaler(d) );
+			});
 
 		// Adds svg circle
 		g.append("circle")
@@ -226,7 +237,7 @@ function main() {
 
 		// Adds svg text
 		g.append("text")
-				.text(function(d,j) { return notesMap[j][i]; })
+				.text(function(d,i,j) { return notesMap[i][j]; })
 				// .attr("x", fretCoords[i] )
 				// .attr("y", function(d,j) { return stringCoords[j]; })
 			    // .attr("opacity", function(d) { return scaler(d); })
@@ -237,8 +248,8 @@ function main() {
 				.style("pointer-events", "none")
 				.style("fill","white");
 
-		p.exit().remove();
-	}
+		// p.exit().remove();
+	// }
 
 
 
