@@ -1,11 +1,15 @@
 function getNotes(fileName)
 {
-	var f = [];
+	var arr_f = [];
+
+	/* Loading XML file  */
 
 	var xmlDoc=document.implementation.createDocument("","",null);
 	xmlDoc.async = false;
 	xmlDoc.load(fileName);
 	xmlDoc.onload=MusicParse();
+
+	/* Function to parse the document  */
 
 	function MusicParse()
 	{
@@ -14,6 +18,7 @@ function getNotes(fileName)
 		var j = 0;
 		var f = [];
 
+		/* Obtaining which instrument of song user wants to display */
 
 		var part_list = xmlDoc.getElementsByTagName("part-list");
 		var score_part = xmlDoc.getElementsByTagName("score-part");
@@ -31,6 +36,10 @@ function getNotes(fileName)
 
 		var person = prompt(str_display, "0");
 		var arr_part = xmlDoc.getElementsByTagName("part");
+		
+		/* Obtatining the notes  */
+
+
 		var arr_step = arr_part[person].getElementsByTagName('step');
 		var iMax = arr_step.length;
 		var jMax = 3;
@@ -42,6 +51,9 @@ function getNotes(fileName)
 		  f[i][j]=0;
 		 }
 		}
+
+
+		/* Travesing the tree  */
 
 		for (var i = 0; i < iMax; i++)
 		{
@@ -59,13 +71,19 @@ function getNotes(fileName)
 
 			/* document.write(f[i][0]+" ");
 			 document.write(f[i][1]+" ");
-			 document.write(f[i][2]+" "+"<br>");
-			 */
+			 document.write(f[i][2]+" "+"<br>"); */
+			 
 
 		}
-	}
 
-	return f ;
+			/* Storing the values in a Global variale */
+
+			arr_f = f ;
+
+		}
+
+
+	 	return arr_f ;
 
 }
 
