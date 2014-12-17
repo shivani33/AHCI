@@ -5,6 +5,8 @@
 
 // Management of module dependencies by the lib require.js
 require([
+	// "lib/d3.min",
+	// "lib/d3tip",
 	"scales",
 	"chords",
 	"guitarConstants",
@@ -212,7 +214,7 @@ function main() {
 			.on("mouseover", function(d) { 
 				d3.select(this)
 					.transition()
-					.ease("easeOutQuint")
+					.ease("easeOutQuint	")
 					.style("opacity", 1); 
 			})
 			.on("mouseout", function(d) {
@@ -288,11 +290,20 @@ function addBarChart(data) {
 	    .scale(y)
 	    .orient("left");
 
+	var tip = d3.tip()
+		.attr('class', 'd3-tip')
+		.offset([-10, 0])
+		.html(function(d) {
+			return "<strong>Frequency:</strong> <span style='color:red'>" + data[d] + "</span>";
+		});
+
 	var chartSvg = d3.select("body").append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 	  .append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	chartSvg.call(tip);
 
 	x.domain(Object.keys(data));
 	y.domain([0, d3.max(Object.keys(data), function(d) { return data[d]; }) ]);
@@ -319,6 +330,8 @@ function addBarChart(data) {
 		.attr("x", function(d) { return x(d); })
 		.attr("width", x.rangeBand())
 		.attr("y", function(d) { return y(data[d]); })
-		.attr("height", function(d) { return height - y(data[d]); });
+		.attr("height", function(d) { return height - y(data[d]); })
+		.on('mouseover', tip.show)
+      	.on('mouseout', tip.hide);
 
 }
