@@ -35,6 +35,16 @@ function getNotes(fileName)
 		}
 
 		var person = prompt(str_display, "0");
+
+		/* If invalid instrument number is entered then error msg */
+
+		if(person >= score_part.length)
+		{
+			document.write("Enter valid instrument number. Refresh again. ");
+			return ;
+		}
+
+
 		var arr_part = xmlDoc.getElementsByTagName("part");
 		
 		/* Obtatining the notes  */
@@ -68,11 +78,6 @@ function getNotes(fileName)
 			 f[i][0]=step;
 			 f[i][1]=fret;
 			 f[i][2]=string;
-
-			/* document.write(f[i][0]+" ");
-			 document.write(f[i][1]+" ");
-			 document.write(f[i][2]+" "+"<br>"); */
-			 
 
 		}
 
