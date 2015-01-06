@@ -7,8 +7,9 @@
 require([
 	// "lib/d3.min",
 	// "lib/d3tip",
-	"scales",
-	"chords",
+	"SongAnalyzer",
+	// "scales",
+	// "chords",
 	"guitarConstants",
 	"songs"
 ],
@@ -65,6 +66,7 @@ function main() {
 	// var songNotes = songs.fortheloveofgod;
 	var songNotes = songs.minorswing;
 
+	var notesTotal = 0;	
 	var notesMatrix = [];
 	var notesCount = { "C": 0,"Db": 0,"D": 0,"Eb": 0,"E": 0,"F": 0,"Gb": 0,"G": 0,"Ab": 0,"A": 0,"Bb": 0,"B": 0 };
 	for(var i=0; i<nfrets; i++) {
@@ -99,9 +101,21 @@ function main() {
 
 			// Add count in the count of notes
 			notesCount[note]++;
+
+			// Add count in the count of total notes
+			notesTotal++;
 		}
 	});
 	var maxNotesPerPosition = d3.max(notesMatrix, function(d) { return d3.max(d); });
+
+	var notesFrequencies = {};
+	Object.keys(notesCount).forEach( function(i) {
+		notesFrequencies[i] = notesCount[i]/notesTotal;
+ 	});
+
+	var analyzer = new SongAnalyzer();
+	analyzer.guessScale(notesFrequencies);
+
 
 
 	//////////////////////
@@ -165,8 +179,14 @@ function main() {
 
 
 	// Lines
+	var pairs = d3.pairs(songNotes);
+	// var colorGradient = d3.scale.linear()
+	//   .domain([0,pairs.length])
+	//   .interpolate(d3.interpolateHcl)
+	//   .range([d3.rgb(229, 67, 70), d3.rgb(58,141,195)]);
+	//   // d3.rgb(255,255,205),
 	svg.selectAll(".line")
-		.data(d3.pairs(songNotes))
+		.data(pairs)
 		.enter()
 		.append("path")
 		// Crazy function that creates a cool slightly bended curve
@@ -184,6 +204,7 @@ function main() {
 
 		  })
 		.style("stroke", CURVECOLOR)
+		// .style("stroke", function(d,i) {  return colorGradient(i); } )
 		.style("fill", "none")
 		.style("stroke-width", LINESWIDTH)
 	   	.style("opacity", linesAlpha);
