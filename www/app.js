@@ -440,7 +440,7 @@ function loadSong(songName) {
 	// STATISTICS //
 	////////////////
 
- 	var p = d3.select("#container").append("p")[0][0];
+ 	var p = d3.select("#container").append("div")[0][0];
  	p.innerHTML = notesTotal + " notes loaded";
 
 	addBarChart(notesCount);
