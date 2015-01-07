@@ -6,11 +6,11 @@
 }
 
 .bar {
-  fill: #6A4A3C;
+  fill: #803D3D;
 }
 
 .bar:hover {
-  fill: orangered ;
+  /*fill: red ;*/
 }
 
 /* Creates a small triangle extender for the tooltip */

@@ -150,66 +150,66 @@ var scales = {
 	"A Phrygian-Dominant": ["A","A#","C#","D","E","F","G"],
 	"A# Phrygian-Dominant": ["A#","B","D","D#","F","F#","G#"],
 	"B Phrygian-Dominant": ["B","C","D#","E","F#","G","A"],
-	"C Dorian": ["C","D","D#","F","G","A","A#"],
-	"C# Dorian": ["C#","D#","E","F#","G#","A#","B"],
-	"D Dorian": ["D","E","F","G","A","B","C"],
-	"D# Dorian": ["D#","F","F#","G#","A#","C","C#"],
-	"E Dorian": ["E","F#","G","A","B","C#","D"],
-	"F Dorian": ["F","G","G#","A#","C","D","D#"],
-	"F# Dorian": ["F#","G#","A","B","C#","D#","E"],
-	"G Dorian": ["G","A","A#","C","D","E","F"],
-	"G# Dorian": ["G#","A#","B","C#","D#","F","F#"],
-	"A Dorian": ["A","B","C","D","E","F#","G"],
-	"A# Dorian": ["A#","C","C#","D#","F","G","G#"],
-	"B Dorian": ["B","C#","D","E","F#","G#","A"],
-	"C Phrygian": ["C","C#","D#","F","G","G#","A#"],
-	"C# Phrygian": ["C#","D","E","F#","G#","A","B"],
-	"D Phrygian": ["D","D#","F","G","A","A#","C"],
-	"D# Phrygian": ["D#","E","F#","G#","A#","B","C#"],
-	"E Phrygian": ["E","F","G","A","B","C","D"],
-	"F Phrygian": ["F","F#","G#","A#","C","C#","D#"],
-	"F# Phrygian": ["F#","G","A","B","C#","D","E"],
-	"G Phrygian": ["G","G#","A#","C","D","D#","F"],
-	"G# Phrygian": ["G#","A","B","C#","D#","E","F#"],
-	"A Phrygian": ["A","A#","C","D","E","F","G"],
-	"A# Phrygian": ["A#","B","C#","D#","F","F#","G#"],
-	"B Phrygian": ["B","C","D","E","F#","G","A"],
-	"C Lydian": ["C","D","E","F#","G","A","B"],
-	"C# Lydian": ["C#","D#","F","G","G#","A#","C"],
-	"D Lydian": ["D","E","F#","G#","A","B","C#"],
-	"D# Lydian": ["D#","F","G","A","A#","C","D"],
-	"E Lydian": ["E","F#","G#","A#","B","C#","D#"],
-	"F Lydian": ["F","G","A","B","C","D","E"],
-	"F# Lydian": ["F#","G#","A#","C","C#","D#","F"],
-	"G Lydian": ["G","A","B","C#","D","E","F#"],
-	"G# Lydian": ["G#","A#","C","D","D#","F","G"],
-	"A Lydian": ["A","B","C#","D#","E","F#","G#"],
-	"A# Lydian": ["A#","C","D","E","F","G","A"],
-	"B Lydian": ["B","C#","D#","F","F#","G#","A#"],
-	"C Mixolydian": ["C","D","E","F","G","A","A#"],
-	"C# Mixolydian": ["C#","D#","F","F#","G#","A#","B"],
-	"D Mixolydian": ["D","E","F#","G","A","B","C"],
-	"D# Mixolydian": ["D#","F","G","G#","A#","C","C#"],
-	"E Mixolydian": ["E","F#","G#","A","B","C#","D"],
-	"F Mixolydian": ["F","G","A","A#","C","D","D#"],
-	"F# Mixolydian": ["F#","G#","A#","B","C#","D#","E"],
-	"G Mixolydian": ["G","A","B","C","D","E","F"],
-	"G# Mixolydian": ["G#","A#","C","C#","D#","F","F#"],
-	"A Mixolydian": ["A","B","C#","D","E","F#","G"],
-	"A# Mixolydian": ["A#","C","D","D#","F","G","G#"],
-	"B Mixolydian": ["B","C#","D#","E","F#","G#","A"],
-	"C Locrian": ["C","C#","D#","F","F#","G#","A#"],
-	"C# Locrian": ["C#","D","E","F#","G","A","B"],
-	"D Locrian": ["D","D#","F","G","G#","A#","C"],
-	"D# Locrian": ["D#","E","F#","G#","A","B","C#"],
-	"E Locrian": ["E","F","G","A","A#","C","D"],
-	"F Locrian": ["F","F#","G#","A#","B","C#","D#"],
-	"F# Locrian": ["F#","G","A","B","C","D","E"],
-	"G Locrian": ["G","G#","A#","C","C#","D#","F"],
-	"G# Locrian": ["G#","A","B","C#","D","E","F#"],
-	"A Locrian": ["A","A#","C","D","D#","F","G"],
-	"A# Locrian": ["A#","B","C#","D#","E","F#","G#"],
-	"B Locrian": ["B","C","D","E","F","G","A"],
+	// "C Dorian": ["C","D","D#","F","G","A","A#"],
+	// "C# Dorian": ["C#","D#","E","F#","G#","A#","B"],
+	// "D Dorian": ["D","E","F","G","A","B","C"],
+	// "D# Dorian": ["D#","F","F#","G#","A#","C","C#"],
+	// "E Dorian": ["E","F#","G","A","B","C#","D"],
+	// "F Dorian": ["F","G","G#","A#","C","D","D#"],
+	// "F# Dorian": ["F#","G#","A","B","C#","D#","E"],
+	// "G Dorian": ["G","A","A#","C","D","E","F"],
+	// "G# Dorian": ["G#","A#","B","C#","D#","F","F#"],
+	// "A Dorian": ["A","B","C","D","E","F#","G"],
+	// "A# Dorian": ["A#","C","C#","D#","F","G","G#"],
+	// "B Dorian": ["B","C#","D","E","F#","G#","A"],
+	// "C Phrygian": ["C","C#","D#","F","G","G#","A#"],
+	// "C# Phrygian": ["C#","D","E","F#","G#","A","B"],
+	// "D Phrygian": ["D","D#","F","G","A","A#","C"],
+	// "D# Phrygian": ["D#","E","F#","G#","A#","B","C#"],
+	// "E Phrygian": ["E","F","G","A","B","C","D"],
+	// "F Phrygian": ["F","F#","G#","A#","C","C#","D#"],
+	// "F# Phrygian": ["F#","G","A","B","C#","D","E"],
+	// "G Phrygian": ["G","G#","A#","C","D","D#","F"],
+	// "G# Phrygian": ["G#","A","B","C#","D#","E","F#"],
+	// "A Phrygian": ["A","A#","C","D","E","F","G"],
+	// "A# Phrygian": ["A#","B","C#","D#","F","F#","G#"],
+	// "B Phrygian": ["B","C","D","E","F#","G","A"],
+	// "C Lydian": ["C","D","E","F#","G","A","B"],
+	// "C# Lydian": ["C#","D#","F","G","G#","A#","C"],
+	// "D Lydian": ["D","E","F#","G#","A","B","C#"],
+	// "D# Lydian": ["D#","F","G","A","A#","C","D"],
+	// "E Lydian": ["E","F#","G#","A#","B","C#","D#"],
+	// "F Lydian": ["F","G","A","B","C","D","E"],
+	// "F# Lydian": ["F#","G#","A#","C","C#","D#","F"],
+	// "G Lydian": ["G","A","B","C#","D","E","F#"],
+	// "G# Lydian": ["G#","A#","C","D","D#","F","G"],
+	// "A Lydian": ["A","B","C#","D#","E","F#","G#"],
+	// "A# Lydian": ["A#","C","D","E","F","G","A"],
+	// "B Lydian": ["B","C#","D#","F","F#","G#","A#"],
+	// "C Mixolydian": ["C","D","E","F","G","A","A#"],
+	// "C# Mixolydian": ["C#","D#","F","F#","G#","A#","B"],
+	// "D Mixolydian": ["D","E","F#","G","A","B","C"],
+	// "D# Mixolydian": ["D#","F","G","G#","A#","C","C#"],
+	// "E Mixolydian": ["E","F#","G#","A","B","C#","D"],
+	// "F Mixolydian": ["F","G","A","A#","C","D","D#"],
+	// "F# Mixolydian": ["F#","G#","A#","B","C#","D#","E"],
+	// "G Mixolydian": ["G","A","B","C","D","E","F"],
+	// "G# Mixolydian": ["G#","A#","C","C#","D#","F","F#"],
+	// "A Mixolydian": ["A","B","C#","D","E","F#","G"],
+	// "A# Mixolydian": ["A#","C","D","D#","F","G","G#"],
+	// "B Mixolydian": ["B","C#","D#","E","F#","G#","A"],
+	// "C Locrian": ["C","C#","D#","F","F#","G#","A#"],
+	// "C# Locrian": ["C#","D","E","F#","G","A","B"],
+	// "D Locrian": ["D","D#","F","G","G#","A#","C"],
+	// "D# Locrian": ["D#","E","F#","G#","A","B","C#"],
+	// "E Locrian": ["E","F","G","A","A#","C","D"],
+	// "F Locrian": ["F","F#","G#","A#","B","C#","D#"],
+	// "F# Locrian": ["F#","G","A","B","C","D","E"],
+	// "G Locrian": ["G","G#","A#","C","C#","D#","F"],
+	// "G# Locrian": ["G#","A","B","C#","D","E","F#"],
+	// "A Locrian": ["A","A#","C","D","D#","F","G"],
+	// "A# Locrian": ["A#","B","C#","D#","E","F#","G#"],
+	// "B Locrian": ["B","C","D","E","F","G","A"],
 	"C jazz melodic minor": ["C","D","D#","F","G","A","B"],
 	"C# jazz melodic minor": ["C#","D#","E","F#","G#","A#","C"],
 	"D jazz melodic minor": ["D","E","F","G","A","B","C#"],
@@ -423,8 +423,7 @@ function SongAnalyzer() {
 SongAnalyzer.prototype.guessScale = function (notesFrequencies) {
 
 	var scaleScores = {};
-	var maxScore = 0;
-	var maxScoreScale;
+	var scalesWithScores = [];
 
 	Object.keys(scales).forEach( function(aScale) {
 		// console.log(scales[aScale]);
@@ -437,13 +436,28 @@ SongAnalyzer.prototype.guessScale = function (notesFrequencies) {
 			}
 		});
 
-		if (maxScore == 0 || maxScore < scaleScores[aScale]) {
-			maxScore = scaleScores[aScale];
-			maxScoreScale = aScale;			
-		}
+		scalesWithScores.push([aScale, scaleScores[aScale]]);
 
 	});
 
-	console.log("Scale probably is " + maxScoreScale + " (prob. " + maxScore + ")" );
+	// Sort scales list with corresponding scores
+	scalesWithScores.sort( function(a, b) {return a[1] - b[1];} );
 
+	return scalesWithScores.reverse();
+};
+
+// Construct list of positions of notes of the scale
+SongAnalyzer.prototype.getScaleNotesPositions = function(scale) {
+	var scaleNotesPositions = [];
+
+	for (var fret=0; fret<nfrets; fret++) {
+		for (var string=0; string<nstrings; string++) {
+			if (scales[scale].indexOf(notesMap[string][fret]) >= 0) {
+				scaleNotesPositions.push({"fret": fret, "string": string});
+				// console.log(fret + "," + string);
+			}
+		}
+	}
+
+	return scaleNotesPositions;
 };
